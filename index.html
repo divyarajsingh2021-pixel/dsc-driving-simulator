@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>DSC — Gesture Driving Simulator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/hud.css" />
+</head>
+<body>
+
+  <!-- 3D render target -->
+  <div id="game"></div>
+
+  <!-- HUD overlay -->
+  <div id="hud">
+
+    <!-- Speedometer gauge -->
+    <div class="hud-panel hud-panel--gauge">
+      <div class="gauge">
+        <svg class="gauge-face" viewBox="0 0 200 120">
+          <path d="M 15 110 A 85 85 0 0 1 185 110" class="gauge-track" />
+          <path d="M 15 110 A 85 85 0 0 1 185 110" class="gauge-track-glow" />
+        </svg>
+        <div class="gauge-needle" id="gauge-needle"></div>
+        <div class="gauge-cap"></div>
+        <div class="gauge-readout">
+          <span id="hud-speed-value">000</span>
+          <small>KM/H</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Steering + status -->
+    <div class="hud-panel hud-panel--status" id="hud-status-panel">
+      <div class="hud-row">
+        <span class="hud-label">STEER ANGLE</span>
+        <span class="hud-value" id="hud-steer-value">+0°</span>
+      </div>
+      <div class="steer-bar">
+        <div class="steer-bar-center"></div>
+        <div class="steer-bar-fill" id="steer-bar-fill"></div>
+      </div>
+      <div class="hud-row">
+        <span class="hud-label">STATE</span>
+        <span class="hud-value hud-value--status" id="hud-status-value">IDLE</span>
+      </div>
+      <div class="hud-row">
+        <span class="hud-label hud-label--sub" id="hud-hands-value">NO HANDS DETECTED</span>
+      </div>
+    </div>
+
+    <!-- Hand tracking camera feed -->
+    <div class="hud-panel hud-panel--cam">
+      <div class="cam-label">HAND TRACKING FEED</div>
+      <video id="webcam" autoplay playsinline muted></video>
+    </div>
+
+    <!-- Driver name + score -->
+    <div class="hud-panel hud-panel--player">
+      <div class="hud-label">DRIVER</div>
+      <div class="hud-value hud-value--player-name" id="hud-player-name">—</div>
+      <div class="hud-row hud-row--score">
+        <span class="hud-label">SCORE</span>
+        <span class="hud-value hud-value--score" id="hud-score-value">0</span>
+      </div>
+    </div>
+
+    <!-- Distance -->
+    <div class="hud-panel hud-panel--score">
+      <div class="hud-row">
+        <span class="hud-label">DISTANCE</span>
+        <span class="hud-value" id="hud-distance-value">0 M</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Mobile controls: tilt to steer, hold to accelerate. Shown only when
+       main.js detects a touch/mobile device. -->
+  <div id="touch-controls" class="touch-controls hidden">
+    <button id="calibrate-button" class="touch-calibrate-button" type="button">RECENTER STEERING</button>
+    <button id="throttle-button" class="touch-throttle-button" type="button">HOLD TO<br />DRIVE</button>
+  </div>
+
+  <!-- Blocks play in portrait on small screens; driving needs landscape. -->
+  <div id="orientation-lock" class="orientation-lock">
+    <div class="orientation-lock-card">
+      <div class="orientation-icon">⟳</div>
+      <p>Rotate your device to landscape to drive.</p>
+    </div>
+  </div>
+
+  <!-- Start / permissions overlay -->
+  <div id="start-overlay">
+    <div class="start-card">
+      <div class="start-eyebrow">DSC // GESTURE DRIVING SIMULATOR</div>
+      <h1>Drive with your hands</h1>
+      <p>
+        Point with your index finger (other fingers curled) to accelerate —
+        tilt that finger left or right to steer. Camera access is required
+        to begin — if it's ever unavailable, arrow keys / WASD take over
+        automatically.
+      </p>
+      <div class="start-name-field">
+        <label for="player-name-input" class="start-name-label">DRIVER NAME</label>
+        <input
+          type="text"
+          id="player-name-input"
+          class="start-name-input"
+          placeholder="Enter your name"
+          maxlength="16"
+          autocomplete="off"
+        />
+      </div>
+      <button id="start-button">START ENGINE</button>
+    </div>
+  </div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
