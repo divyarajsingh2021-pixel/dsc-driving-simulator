@@ -1,6 +1,6 @@
 # 🏎️ DSC — Gesture-Controlled Driving Simulator
 
-A 3D driving simulator built with **Three.js**, **Vite**, and **MediaPipe Hands** — drive using nothing but hand gestures in front of your webcam (or tilt-to-steer on mobile), through a four-lane road with real oncoming traffic, cycling day/rain/night weather, and a live score system.
+A 3D driving simulator built with **Three.js**, **Vite**, and **MediaPipe Hands** — drive using nothing but hand gestures in front of your webcam (or tilt-to-steer on mobile), through a four-lane road with real oncoming traffic,cycling day/rain/night weather, and a live score system.
 
 ---
 
